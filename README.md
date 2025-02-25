@@ -1,4 +1,5 @@
 # @lishenxydlgzs/aws-athena-mcp
+[![smithery badge](https://smithery.ai/badge/@lishenxydlgzs/aws-athena-mcp)](https://smithery.ai/server/@lishenxydlgzs/aws-athena-mcp)
 
 A Model Context Protocol (MCP) server for running AWS Athena queries. This server enables AI assistants to execute SQL queries against your AWS Athena databases and retrieve results.
 
