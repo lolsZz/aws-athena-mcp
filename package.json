@@ -1,0 +1,48 @@
+{
+  "name": "@lishenxydlgzs/aws-athena-mcp",
+  "version": "1.0.0",
+  "description": "Model Context Protocol (MCP) server for running AWS Athena queries",
+  "type": "module",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "bin": {
+    "aws-athena-mcp": "build/index.js"
+  },
+  "files": [
+    "build",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc && chmod +x build/index.js",
+    "start": "node build/index.js",
+    "dev": "tsc -w",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "aws",
+    "athena",
+    "modelcontextprotocol",
+    "llm",
+    "ai"
+  ],
+  "author": "Shen Li",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lishenxydlgzs/aws-athena-mcp"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@aws-sdk/client-athena": "^3.0.0",
+    "@aws-sdk/credential-provider-node": "^3.0.0",
+    "@modelcontextprotocol/sdk": "^0.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
