@@ -1,0 +1,74 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - outputS3Path
+    properties:
+      outputS3Path:
+        type: string
+        description: S3 bucket path to store Athena query results (e.g.,
+          s3://your-bucket/athena-results/)
+      awsRegion:
+        type: string
+        default: us-east-1
+        description: AWS region to use if not specified in AWS CLI config
+      awsProfile:
+        type: string
+        default: default
+        description: AWS CLI profile to use
+      awsAccessKeyId:
+        type: string
+        default: ""
+        description: Optional AWS access key ID
+      awsSecretAccessKey:
+        type: string
+        default: ""
+        description: Optional AWS secret access key
+      awsSessionToken:
+        type: string
+        default: ""
+        description: Optional AWS session token
+      queryTimeoutMs:
+        type: string
+        default: "300000"
+        description: "Query timeout in milliseconds (default: 300000ms)"
+      maxRetries:
+        type: string
+        default: "100"
+        description: "Maximum number of retries for a query (default: 100)"
+      retryDelayMs:
+        type: string
+        default: "500"
+        description: "Delay in milliseconds between retries (default: 500ms)"
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['build/index.js'],
+      env: {
+        OUTPUT_S3_PATH: config.outputS3Path,
+        AWS_REGION: config.awsRegion,
+        AWS_PROFILE: config.awsProfile,
+        AWS_ACCESS_KEY_ID: config.awsAccessKeyId,
+        AWS_SECRET_ACCESS_KEY: config.awsSecretAccessKey,
+        AWS_SESSION_TOKEN: config.awsSessionToken,
+        QUERY_TIMEOUT_MS: config.queryTimeoutMs,
+        MAX_RETRIES: config.maxRetries,
+        RETRY_DELAY_MS: config.retryDelayMs
+      }
+    })
+  exampleConfig:
+    outputS3Path: s3://my-bucket/athena-results/
+    awsRegion: us-west-2
+    awsProfile: default
+    awsAccessKeyId: ABC123XYZ
+    awsSecretAccessKey: SuperSecretKey
+    awsSessionToken: ""
+    queryTimeoutMs: "300000"
+    maxRetries: "100"
+    retryDelayMs: "500"
