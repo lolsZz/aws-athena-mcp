@@ -68,9 +68,49 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
     - Full query results if the query has completed successfully
     - Error if query failed or is still running
 
-## Examples
+## Usage Examples
 
-Running a query:
+### Show All Databases
+Message to AI Assistant:
+```List all databases in Athena```
+
+MCP parameter:
+```json
+{
+  "database": "default",
+  "query": "SHOW DATABASES"
+}
+```
+
+### List Tables in a Database
+Message to AI Assistant:
+```Show me all tables in the default database```
+
+MCP parameter:
+```json
+{
+  "database": "default",
+  "query": "SHOW TABLES"
+}
+```
+
+### Get Table Schema
+Message to AI Assistant:
+```What's the schema of the asin_sitebestimg table?```
+
+MCP parameter:
+```json
+{
+  "database": "default",
+  "query": "DESCRIBE default.asin_sitebestimg"
+}
+```
+
+### Table Rows Preview
+Message to AI Assistant:
+```Show some rows from my_database.mytable```
+
+MCP parameter:
 ```json
 {
   "database": "my_database",
@@ -79,21 +119,33 @@ Running a query:
 }
 ```
 
-Checking query status:
+### Advanced Query with Filtering and Aggregation
+Message to AI Assistant:
+```Find the average price by category for in-stock products```
+
+MCP parameter:
+```json
+{
+  "database": "my_database",
+  "query": "SELECT category, COUNT(*) as count, AVG(price) as avg_price FROM products WHERE in_stock = true GROUP BY category ORDER BY count DESC",
+  "maxRows": 100
+}
+```
+
+### Checking Query Status
 ```json
 {
   "queryExecutionId": "12345-67890-abcdef"
 }
 ```
 
-Getting results for a completed query:
+### Getting Results for a Completed Query
 ```json
 {
   "queryExecutionId": "12345-67890-abcdef",
   "maxRows": 10
 }
 ```
-
 ## Requirements
 
 - Node.js >= 16
