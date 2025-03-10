@@ -1,4 +1,5 @@
 # @lishenxydlgzs/aws-athena-mcp
+
 [![smithery badge](https://smithery.ai/badge/@lishenxydlgzs/aws-athena-mcp)](https://smithery.ai/server/@lishenxydlgzs/aws-athena-mcp)
 
 A Model Context Protocol (MCP) server for running AWS Athena queries. This server enables AI assistants to execute SQL queries against your AWS Athena databases and retrieve results.
@@ -6,6 +7,7 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
 ## Usage
 
 1. Configure AWS credentials using one of the following methods:
+
    - AWS CLI configuration
    - Environment variables (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY)
    - IAM role (if running on AWS)
@@ -21,18 +23,18 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
       "env": {
         // Required
         "OUTPUT_S3_PATH": "s3://your-bucket/athena-results/",
-        
+
         // Optional AWS configuration
-        "AWS_REGION": "us-east-1",                    // Default: AWS CLI default region
-        "AWS_PROFILE": "default",                     // Default: 'default' profile
-        "AWS_ACCESS_KEY_ID": "",                      // Optional: AWS access key
-        "AWS_SECRET_ACCESS_KEY": "",                  // Optional: AWS secret key
-        "AWS_SESSION_TOKEN": "",                      // Optional: AWS session token
-        
+        "AWS_REGION": "us-west-2", // Default: AWS CLI default region
+        "AWS_PROFILE": "default", // Default: 'default' profile
+        "AWS_ACCESS_KEY_ID": "", // Optional: AWS access key
+        "AWS_SECRET_ACCESS_KEY": "", // Optional: AWS secret key
+        "AWS_SESSION_TOKEN": "", // Optional: AWS session token
+
         // Optional server configuration
-        "QUERY_TIMEOUT_MS": "300000",                // Default: 5 minutes (300000ms)
-        "MAX_RETRIES": "100",                        // Default: 100 attempts
-        "RETRY_DELAY_MS": "500"                      // Default: 500ms between retries
+        "QUERY_TIMEOUT_MS": "300000", // Default: 5 minutes (300000ms)
+        "MAX_RETRIES": "100", // Default: 100 attempts
+        "RETRY_DELAY_MS": "500" // Default: 500ms between retries
       }
     }
   }
@@ -42,6 +44,7 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
 3. The server provides the following tools:
 
 - `run_query`: Execute a SQL query using AWS Athena
+
   - Parameters:
     - database: The Athena database to query
     - query: SQL query to execute
@@ -51,6 +54,7 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
     - If timeout reached: Only the queryExecutionId for later retrieval
 
 - `get_status`: Check the status of a query execution
+
   - Parameters:
     - queryExecutionId: The ID returned from run_query
   - Returns:
@@ -71,10 +75,12 @@ A Model Context Protocol (MCP) server for running AWS Athena queries. This serve
 ## Usage Examples
 
 ### Show All Databases
+
 Message to AI Assistant:
-```List all databases in Athena```
+`List all databases in Athena`
 
 MCP parameter:
+
 ```json
 {
   "database": "default",
@@ -83,10 +89,12 @@ MCP parameter:
 ```
 
 ### List Tables in a Database
+
 Message to AI Assistant:
-```Show me all tables in the default database```
+`Show me all tables in the default database`
 
 MCP parameter:
+
 ```json
 {
   "database": "default",
@@ -95,10 +103,12 @@ MCP parameter:
 ```
 
 ### Get Table Schema
+
 Message to AI Assistant:
-```What's the schema of the asin_sitebestimg table?```
+`What's the schema of the asin_sitebestimg table?`
 
 MCP parameter:
+
 ```json
 {
   "database": "default",
@@ -107,10 +117,12 @@ MCP parameter:
 ```
 
 ### Table Rows Preview
+
 Message to AI Assistant:
-```Show some rows from my_database.mytable```
+`Show some rows from my_database.mytable`
 
 MCP parameter:
+
 ```json
 {
   "database": "my_database",
@@ -120,10 +132,12 @@ MCP parameter:
 ```
 
 ### Advanced Query with Filtering and Aggregation
+
 Message to AI Assistant:
-```Find the average price by category for in-stock products```
+`Find the average price by category for in-stock products`
 
 MCP parameter:
+
 ```json
 {
   "database": "my_database",
@@ -133,6 +147,7 @@ MCP parameter:
 ```
 
 ### Checking Query Status
+
 ```json
 {
   "queryExecutionId": "12345-67890-abcdef"
@@ -140,12 +155,14 @@ MCP parameter:
 ```
 
 ### Getting Results for a Completed Query
+
 ```json
 {
   "queryExecutionId": "12345-67890-abcdef",
   "maxRows": 10
 }
 ```
+
 ## Requirements
 
 - Node.js >= 16
